@@ -58,7 +58,7 @@ function QuizQuestion() {
         setTimer(timer - 1);
       }, 1000);
     }
-  }, [quizIsGoing, timer])
+  }, [quizIsGoing, timer]);
 
   interface questionResponse {
     isRightFromCard: Boolean;
@@ -71,9 +71,12 @@ function QuizQuestion() {
     } else {
       console.log("wrong");
     }
+    if(currentQuestionId < 15){
+      setCurrentQuestionId((el) => el + 1);
+    } else {
+      alert('This is it')
+    }
   }
-
-  let [currentQuestionId, setCurrentQuestionId] = useState(0)
 
   let dataBase = [
     {
@@ -84,7 +87,142 @@ function QuizQuestion() {
       variant3: { name: "London", isRight: true },
       variant4: { name: "Dublin", isRight: false },
     },
+    {
+      id: 1,
+      question: "Which infinity stone was located on Vormir?",
+      variant1: { name: "Space Stone", isRight: false },
+      variant2: { name: "Soul Stone", isRight: true },
+      variant3: { name: "Power Stone", isRight: false },
+      variant4: { name: "Time Stone", isRight: false },
+    },
+    {
+      id: 2,
+      question: "John F. Kennedy was assassinated in which city?",
+      variant1: { name: "Los Angeles", isRight: false },
+      variant2: { name: "Nashville", isRight: false },
+      variant3: { name: "Dallas", isRight: true },
+      variant4: { name: "Austin", isRight: false },
+    },
+    {
+      id: 3,
+      question: "What genre of music did Taylor Swift start in?",
+      variant1: { name: "Pop", isRight: false },
+      variant2: { name: "Rock", isRight: false },
+      variant3: { name: "Folk", isRight: false },
+      variant4: { name: "Country", isRight: true },
+    },
+    {
+      id: 4,
+      question: "What was the first Adele's album?",
+      variant1: { name: "19", isRight: true },
+      variant2: { name: "21", isRight: false },
+      variant3: { name: "11", isRight: false },
+      variant4: { name: "15", isRight: false },
+    },
+    {
+      id: 4,
+      question: "How old was Avril Lavigne at her first album?",
+      variant1: { name: "18", isRight: false },
+      variant2: { name: "16", isRight: false },
+      variant3: { name: "17", isRight: true },
+      variant4: { name: "19", isRight: false },
+    },
+    {
+      id: 5,
+      question: "How old was Avril Lavigne at her first album?",
+      variant1: { name: "18", isRight: false },
+      variant2: { name: "16", isRight: false },
+      variant3: { name: "17", isRight: true },
+      variant4: { name: "19", isRight: false },
+    },
+    {
+      id: 6,
+      question: "What's the name of the Spice Girls' debut album?",
+      variant1: { name: "Spice", isRight: true },
+      variant2: { name: "Sour", isRight: false },
+      variant3: { name: "Spice World", isRight: false },
+      variant4: { name: "Forever", isRight: false },
+    },
+    {
+      id: 7,
+      question: "What's the name of the Spice Girls' debut album?",
+      variant1: { name: "Spice", isRight: true },
+      variant2: { name: "Sour", isRight: false },
+      variant3: { name: "Spice World", isRight: false },
+      variant4: { name: "Forever", isRight: false },
+    },
+    {
+      id: 8,
+      question: "The best-selling album of 2010 was Recovery by which artist?",
+      variant1: { name: "Katy Perry", isRight: false },
+      variant2: { name: "Taylor Swift", isRight: false },
+      variant3: { name: "Ed Sheeran", isRight: false },
+      variant4: { name: "Eminem", isRight: true },
+    },
+    {
+      id: 9,
+      question: "What's the name of Britney Spears's debut album?",
+      variant1: { name: "...Baby One More Time", isRight: true },
+      variant2: { name: "Oops!... I Did it again", isRight: false },
+      variant3: { name: "Britney", isRight: false },
+      variant4: { name: "In the Zone", isRight: false },
+    },
+    {
+      id: 10,
+      question:
+        'How did Katy Perry called herself in the song "Last Friday Night"',
+      variant1: { name: "Katy B", isRight: false },
+      variant2: { name: "Katy Perry", isRight: false },
+      variant3: { name: "Kathy Beth Terry", isRight: true },
+      variant4: { name: "Katheryn Elizabeth Hudson", isRight: false },
+    },
+    {
+      id: 11,
+      question:
+        "What is the stage name of the artist whose real name is Abel Makkonen Tesfaye?",
+      variant1: { name: "Drake", isRight: false },
+      variant2: { name: "Bob Dylan", isRight: false },
+      variant3: { name: "Bob Marley", isRight: false },
+      variant4: { name: "The Weeknd", isRight: true },
+    },
+    {
+      id: 12,
+      question:
+        "How old was Britney Spears when her hit song ‘Baby One More Time’ came out in 1998?",
+      variant1: { name: "19", isRight: false },
+      variant2: { name: "16", isRight: false },
+      variant3: { name: "17", isRight: true },
+      variant4: { name: "18", isRight: false },
+    },
+    {
+      id: 13,
+      question:
+        "Tour in 2019 set the all-time record for highest-grossing tour. Who is this singer?",
+      variant1: { name: "Ed Sheeran", isRight: true},
+      variant2: { name: "Taylor Swift", isRight: false },
+      variant3: { name: "The Weeknd", isRight: false },
+      variant4: { name: "Rhiana", isRight: false },
+    },
+    {
+      id: 14,
+      question:
+        "What album, the debut for Olivia Rodrigo released in 2021, contains such songs as “Brutal”, “Deja Vu”, and “Drivers License?”",
+      variant1: { name: "Good 4 u", isRight: false},
+      variant2: { name: "Vampire", isRight: false },
+      variant3: { name: "Sour", isRight: true },
+      variant4: { name: "Fearless", isRight: false },
+    },
+    {
+      id: 15,
+      question:
+        "In November 2020, the Korean boy-band BTS became the first K-pop band ever to receive a Grammy nomination, for what \"explosive\" song that became a #1 hit in the U.S.?",
+      variant1: { name: "Butter", isRight: false},
+      variant2: { name: "DNA", isRight: false },
+      variant3: { name: "IDOL", isRight: false },
+      variant4: { name: "Dynamite", isRight: true },
+    },
   ];
+  let [currentQuestionId, setCurrentQuestionId] = useState(0);
   return (
     <div className="p-4 h-full">
       <div className="text-3xl font-bold">Question {questionNumber}</div>
@@ -148,7 +286,7 @@ function QuizAnswerCard({ children, isRight, click }: QuizAnswer) {
       )}
       onClick={() => {
         click(isRight);
-        setOrder(`order-[${Math.round(Math.random() * 10)}]`)
+        setOrder(`order-[${Math.round(Math.random() * 10)}]`);
       }}
     >
       {children}
