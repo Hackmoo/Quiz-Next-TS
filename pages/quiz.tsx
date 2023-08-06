@@ -1,9 +1,9 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 function Quiz() {
   let [timerStartQuiz, setTimerStartQuiz] = useState(3);
-  let [startTimerQuiz, setStartTimerQuiz] = useState(true); // Turning on counting down at the start
+  let [startTimerQuiz, setStartTimerQuiz] = useState(false); // Turning on counting down at the start
   if (startTimerQuiz) {
     if (timerStartQuiz === 0 || timerStartQuiz < 0) {
       setStartTimerQuiz(!startTimerQuiz);
@@ -13,11 +13,6 @@ function Quiz() {
       setTimerStartQuiz(timerStartQuiz - 1);
     }, 1000);
   }
-
-  // function resetTimerQuiz() {
-  //   setTimerStartQuiz(3);
-  //   setStartTimerQuiz(true);
-  // }
   return (
     <div className="h-[78vh]">
       {startTimerQuiz && (
@@ -47,18 +42,35 @@ function Quiz() {
 function QuizQuestion() {
   let [questionNumber, setQuestionNumber] = useState(1);
   let [timer, setTimer] = useState(15);
-  let [quizIsGoing, setQuizIsGoing] = useState(true);
+  
+ let [test,setTest] = useState(true)
+
   useEffect(() => {
-    if (quizIsGoing) {
-      if (timer === 0 || timer < 0) {
-        setQuizIsGoing(false);
-        return;
+    if(!test){
+      setTimer(15)
+      setTest(true)
+  }
+    if(timer !== 0) {
+      if(test){
+        setTimeout(() => {
+          setTimer(timer - 1)
+        }, 1000)
       }
-      setTimeout(() => {
-        setTimer(timer - 1);
-      }, 1000);
     }
-  }, [quizIsGoing, timer]);
+    if(timer === 0 || timer < 0){
+      if(currentQuestionId < dataBase.length - 1)
+      setTimeout(() => {
+       setTimer(15)
+       setCurrentQuestionId(el => el + 1)
+       setQuestionNumber(el => el + 1)
+      }, 0)
+      else {
+        alert(`You did it! You answered on ${rightAnswers} questions right`)
+      }
+    }
+  
+  }, [timer])
+  
 
   interface questionResponse {
     isRightFromCard: Boolean;
@@ -67,19 +79,26 @@ function QuizQuestion() {
   let [rightAnswers, setRightAnswers] = useState(0)
 
   function clickQuestionCard(isRightFromCard: questionResponse) {
-    setQuestionNumber((el) => el + 1);
-    if (isRightFromCard) {
-      console.log("right you are");
-      setRightAnswers(rightAnswers + 1)
-    } else {
-      console.log("wrong");
-    }
-    if(currentQuestionId < dataBase.length - 1){
-      setCurrentQuestionId((el) => el + 1);
-    } else {
-      alert(`You did it! You answered on ${rightAnswers} questions right`)
-    }
+    if(timer === 0) return;
+    setTest(false)
+    
+      setQuestionNumber((el) => el + 1);
+      if (isRightFromCard) {
+        console.log("right you are");
+        setRightAnswers(rightAnswers + 1)
+      } else {
+        console.log("wrong");
+      }
+      if(currentQuestionId < dataBase.length - 1){
+        setCurrentQuestionId((el) => el + 1);
+      } else {
+        alert(`You did it! You answered on ${rightAnswers} questions right`)
+      }
+    
+    
+    
   }
+
 
   let dataBase = [
     {
@@ -185,7 +204,7 @@ function QuizQuestion() {
       id: 12,
       question:
         "Tour in 2019 set the all-time record for highest-grossing tour. Who is this singer?",
-      variant1: { name: "Ed Sheeran", isRight: true},
+      variant1: { name: "Ed Sheeran", isRight: true },
       variant2: { name: "Taylor Swift", isRight: false },
       variant3: { name: "The Weeknd", isRight: false },
       variant4: { name: "Rhiana", isRight: false },
@@ -194,7 +213,7 @@ function QuizQuestion() {
       id: 13,
       question:
         "What album, the debut for Olivia Rodrigo released in 2021, contains such songs as “Brutal”, “Deja Vu”, and “Drivers License?”",
-      variant1: { name: "Good 4 u", isRight: false},
+      variant1: { name: "Good 4 u", isRight: false },
       variant2: { name: "Vampire", isRight: false },
       variant3: { name: "Sour", isRight: true },
       variant4: { name: "Fearless", isRight: false },
@@ -202,8 +221,8 @@ function QuizQuestion() {
     {
       id: 14,
       question:
-        "In November 2020, the Korean boy-band BTS became the first K-pop band ever to receive a Grammy nomination, for what \"explosive\" song that became a #1 hit in the U.S.?",
-      variant1: { name: "Butter", isRight: false},
+        'In November 2020, the Korean boy-band BTS became the first K-pop band ever to receive a Grammy nomination, for what "explosive" song that became a #1 hit in the U.S.?',
+      variant1: { name: "Butter", isRight: false },
       variant2: { name: "DNA", isRight: false },
       variant3: { name: "IDOL", isRight: false },
       variant4: { name: "Dynamite", isRight: true },
@@ -268,8 +287,7 @@ function QuizAnswerCard({ children, isRight, click }: QuizAnswer) {
   return (
     <div
       className={clsx(
-        "p-4 text-2xl bg-[#6D5D6E] rounded-xl cursor-pointer w-[47%] text-center whitespace-nowrap overflow-hidden text-ellipsis hover:brightness-90 transition-all",
-        order
+        'p-4 text-2xl bg-[#6D5D6E] rounded-xl cursor-pointer w-[47%] text-center whitespace-nowrap overflow-hidden text-ellipsis hover:brightness-90 transition-all', order
       )}
       onClick={() => {
         click(isRight);
