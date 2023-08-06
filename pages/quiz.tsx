@@ -292,6 +292,7 @@ function QuizAnswerCard({ children, isRight, click }: QuizAnswer) {
       onClick={() => {
         click(isRight);
         setOrder(`order-[${Math.round(Math.random() * 10)}]`);
+        alert(isRight ? 'that was right' : 'wrong')
       }}
     >
       {children}
