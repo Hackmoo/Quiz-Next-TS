@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 function Quiz() {
   let [timerStartQuiz, setTimerStartQuiz] = useState(3);
-  let [startTimerQuiz, setStartTimerQuiz] = useState(false);
+  let [startTimerQuiz, setStartTimerQuiz] = useState(true); // Turning on counting down at the start
   if (startTimerQuiz) {
     if (timerStartQuiz === 0 || timerStartQuiz < 0) {
       setStartTimerQuiz(!startTimerQuiz);
@@ -64,17 +64,20 @@ function QuizQuestion() {
     isRightFromCard: Boolean;
   }
 
+  let [rightAnswers, setRightAnswers] = useState(0)
+
   function clickQuestionCard(isRightFromCard: questionResponse) {
     setQuestionNumber((el) => el + 1);
     if (isRightFromCard) {
       console.log("right you are");
+      setRightAnswers(rightAnswers + 1)
     } else {
       console.log("wrong");
     }
-    if(currentQuestionId < 15){
+    if(currentQuestionId < dataBase.length - 1){
       setCurrentQuestionId((el) => el + 1);
     } else {
-      alert('This is it')
+      alert(`You did it! You answered on ${rightAnswers} questions right`)
     }
   }
 
@@ -120,14 +123,6 @@ function QuizQuestion() {
       variant4: { name: "15", isRight: false },
     },
     {
-      id: 4,
-      question: "How old was Avril Lavigne at her first album?",
-      variant1: { name: "18", isRight: false },
-      variant2: { name: "16", isRight: false },
-      variant3: { name: "17", isRight: true },
-      variant4: { name: "19", isRight: false },
-    },
-    {
       id: 5,
       question: "How old was Avril Lavigne at her first album?",
       variant1: { name: "18", isRight: false },
@@ -145,14 +140,6 @@ function QuizQuestion() {
     },
     {
       id: 7,
-      question: "What's the name of the Spice Girls' debut album?",
-      variant1: { name: "Spice", isRight: true },
-      variant2: { name: "Sour", isRight: false },
-      variant3: { name: "Spice World", isRight: false },
-      variant4: { name: "Forever", isRight: false },
-    },
-    {
-      id: 8,
       question: "The best-selling album of 2010 was Recovery by which artist?",
       variant1: { name: "Katy Perry", isRight: false },
       variant2: { name: "Taylor Swift", isRight: false },
@@ -160,7 +147,7 @@ function QuizQuestion() {
       variant4: { name: "Eminem", isRight: true },
     },
     {
-      id: 9,
+      id: 8,
       question: "What's the name of Britney Spears's debut album?",
       variant1: { name: "...Baby One More Time", isRight: true },
       variant2: { name: "Oops!... I Did it again", isRight: false },
@@ -168,7 +155,7 @@ function QuizQuestion() {
       variant4: { name: "In the Zone", isRight: false },
     },
     {
-      id: 10,
+      id: 9,
       question:
         'How did Katy Perry called herself in the song "Last Friday Night"',
       variant1: { name: "Katy B", isRight: false },
@@ -177,7 +164,7 @@ function QuizQuestion() {
       variant4: { name: "Katheryn Elizabeth Hudson", isRight: false },
     },
     {
-      id: 11,
+      id: 10,
       question:
         "What is the stage name of the artist whose real name is Abel Makkonen Tesfaye?",
       variant1: { name: "Drake", isRight: false },
@@ -186,7 +173,7 @@ function QuizQuestion() {
       variant4: { name: "The Weeknd", isRight: true },
     },
     {
-      id: 12,
+      id: 11,
       question:
         "How old was Britney Spears when her hit song ‘Baby One More Time’ came out in 1998?",
       variant1: { name: "19", isRight: false },
@@ -195,7 +182,7 @@ function QuizQuestion() {
       variant4: { name: "18", isRight: false },
     },
     {
-      id: 13,
+      id: 12,
       question:
         "Tour in 2019 set the all-time record for highest-grossing tour. Who is this singer?",
       variant1: { name: "Ed Sheeran", isRight: true},
@@ -204,7 +191,7 @@ function QuizQuestion() {
       variant4: { name: "Rhiana", isRight: false },
     },
     {
-      id: 14,
+      id: 13,
       question:
         "What album, the debut for Olivia Rodrigo released in 2021, contains such songs as “Brutal”, “Deja Vu”, and “Drivers License?”",
       variant1: { name: "Good 4 u", isRight: false},
@@ -213,7 +200,7 @@ function QuizQuestion() {
       variant4: { name: "Fearless", isRight: false },
     },
     {
-      id: 15,
+      id: 14,
       question:
         "In November 2020, the Korean boy-band BTS became the first K-pop band ever to receive a Grammy nomination, for what \"explosive\" song that became a #1 hit in the U.S.?",
       variant1: { name: "Butter", isRight: false},
