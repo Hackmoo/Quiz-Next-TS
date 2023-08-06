@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 function Quiz() {
   let [timerStartQuiz, setTimerStartQuiz] = useState(3);
-  let [startTimerQuiz, setStartTimerQuiz] = useState(false); // Turning on counting down at the start
+  let [startTimerQuiz, setStartTimerQuiz] = useState(true); // Turning on counting down at the start
   if (startTimerQuiz) {
     if (timerStartQuiz === 0 || timerStartQuiz < 0) {
       setStartTimerQuiz(!startTimerQuiz);
